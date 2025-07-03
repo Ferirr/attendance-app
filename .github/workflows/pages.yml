@@ -7,19 +7,19 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read       # für checkout
-  pages: write         # Seite schreiben
-  id-token: write      # für deploy-pages
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js 18
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
@@ -33,7 +33,7 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v3
 
-      - name: Upload artifact for GitHub Pages
+      - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: dist
