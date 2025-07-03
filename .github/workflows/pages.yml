@@ -3,16 +3,12 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main   # Passe an, falls dein Default-Branch anders heißt
-      +on:
-+  push:
-+    branches:
-+      - main
-+  workflow_dispatch:  # ermöglicht manuelles Auslösen
+      - main
+  workflow_dispatch:
 
 permissions:
-  pages: write     # Erlaubt das Veröffentlichen auf GitHub Pages
-  id-token: write  # Erforderlich für das deploy-pages Action
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
@@ -28,7 +24,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build production assets
         run: npm run build
