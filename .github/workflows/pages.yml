@@ -7,23 +7,19 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read        # für checkout
-  pages: write          # um GitHub Pages zu beschreiben
-  id-token: write       # für deploy-pages
-
-concurrency:
-  group: 'gh-pages'
-  cancel-in-progress: true
+  contents: read       # für checkout
+  pages: write         # Seite schreiben
+  id-token: write      # für deploy-pages
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out source
+      - name: Check out repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Set up Node.js 18
         uses: actions/setup-node@v3
         with:
           node-version: '18'
@@ -37,7 +33,7 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v3
 
-      - name: Upload artifact for Pages
+      - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v1
         with:
           path: dist
